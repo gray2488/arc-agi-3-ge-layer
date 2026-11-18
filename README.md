@@ -42,7 +42,7 @@ The sandbox parses candidate code with Python's AST, checks imports against an a
 
 The GE4 integration source includes `_ed25519_verify`, `_verify_trust_record`, and `_verify_owner_attestation`. These routines verify Ed25519 signatures and trust/owner-attestation records; this is cryptographic trust machinery, not merely a grid formatter.
 
-**Trust-root configuration caveat:** the notebook source sets `TRUST_ROOT_PUBKEY_HEX` to a zero-filled placeholder and defines `/etc/ge4/trust_root.pub` as the trust-root file path. A deployment must provision its real trust root or rebuild with its own pinned release root. No private signing key is embedded in the notebook.
+**Trust-root configuration caveat:** the notebook source sets `TRUST_ROOT_PUBKEY_HEX` to a zero-filled placeholder and defines `/etc/ge4/trust_root.pub` as the trust-root file path. A deployment must provision its real trust root or rebuild with its own pinned release root. The GE4 gate-test module calls `Ed25519PrivateKey.generate()` to create temporary signing keys in memory for test fixtures; these are generated at test runtime, not embedded key material.
 
 The GE test module exposes `_run_all()`, which exits non-zero on failure. Its presence does not, by itself, establish that the tests have been executed successfully.
 
